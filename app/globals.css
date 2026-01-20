@@ -409,6 +409,79 @@ button:hover {
   align-items: center;
   margin-bottom: 30px;
 }
+
+/* Carousel Styles - Hidden on desktop */
+.projects-container {
+  position: relative;
+  width: 100%;
+}
+
+.projects-carousel {
+  display: none;
+}
+
+.projects-carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-arrow {
+  background-color: rgba(56, 182, 255, 0.2);
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  background-color: var(--blue);
+  color: black;
+  box-shadow: 0 0 15px var(--blue);
+}
+
+.carousel-arrow i {
+  font-size: 1.2rem;
+}
+
+.carousel-dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background-color: var(--blue);
+  box-shadow: 0 0 10px var(--blue);
+}
+
+.carousel-dot:hover {
+  background-color: rgba(56, 182, 255, 0.5);
+}
 .project-border {
   width: 120px;
   height: 120px;
@@ -437,33 +510,33 @@ button:hover {
 }
 
 .project-border:nth-of-type(1) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2022/12/10/21/41/social-media-7647812_1280.jpg");
+  background-image: url("/AxonUI.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(2) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2019/11/07/20/48/cinema-4609877_1280.jpg");
+  background-image: url("/personal finance app.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(3) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2017/02/15/13/40/tulips-2068692_1280.jpg");
+  background-image: url("/integramind.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(4) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2015/09/03/17/50/cobweb-921039_1280.jpg");
+  background-image: url("/Vdj.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(5) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2016/02/27/12/40/sculpture-1225487_1280.jpg");
+  background-image: url("/Grioupio.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(6) > .project-wrapper {
-  background-image: url("https://cdn.pixabay.com/photo/2016/10/13/15/23/labyrinth-1738039_1280.jpg");
+  background-image: url("/resoureApp.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -760,6 +833,13 @@ button:hover {
     text-align: center;
   }
 
+  .image {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    z-index: 10;
+  }
+
   .intro-heading {
     font-size: 1.8rem;
     line-height: 1.8rem;
@@ -772,14 +852,16 @@ button:hover {
     text-align: center;
   }
 
-  .image {
-    width: 120px;
-    height: 120px;
-  }
-
   .image-wrapper {
     width: 110px;
     height: 110px;
+    position: relative;
+    z-index: 11;
+  }
+
+  .image-wrapper img {
+    position: relative;
+    z-index: 12;
   }
 
   img {
@@ -831,30 +913,82 @@ button:hover {
   }
 
   .projects {
-    gap: 5px;
+    display: none;
+  }
+
+  .projects-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .projects-carousel {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .projects-carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-item {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+  }
+
+  .carousel-arrow-left {
+    left: 5px;
+  }
+
+  .carousel-arrow-right {
+    right: 5px;
+  }
+
+  .carousel-dots {
+    display: flex;
   }
 
   .project-border {
-    width: 80px;
-    height: 80px;
-    margin: 5px;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
   }
 
   .project-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 260px;
+    height: 260px;
   }
 
   .app-title {
-    font-size: 0.7rem;
-    padding: 2px 5px;
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
   }
 
   .visit-app {
-    font-size: 0.65rem;
-    padding: 3px 5px;
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+
+  .visit-app > i {
+    font-size: 1rem;
   }
 
   .social-media-btns {
@@ -872,6 +1006,10 @@ button:hover {
 .project-cube-container {
   position: relative;
   animation: fadeInCube 0.5s ease;
+}
+
+.project-mobile-image {
+  display: none;
 }
 
 @keyframes fadeInCube {
@@ -1201,11 +1339,32 @@ button:hover {
     backdrop-filter: blur(5px);
     z-index: 1000;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
-    overflow-y: auto;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
     animation: fadeInOverlay 0.3s ease;
+  }
+  
+  .project-mobile-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 60px 20px 20px 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  
+  .project-mobile-image img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   
   @keyframes fadeInOverlay {
@@ -1219,8 +1378,8 @@ button:hover {
   
   .project-close-btn {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     z-index: 1001;
     width: 40px;
     height: 40px;
@@ -1234,41 +1393,23 @@ button:hover {
   }
 
   .project-scene {
-    width: 100%;
-    max-width: 420px;
-    height: auto;
-    min-height: auto;
-    perspective: none;
-    flex-shrink: 0;
-    margin: 0 auto;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.98);
-    border: 2px solid var(--blue);
-    border-radius: 16px;
-    box-shadow: 0 25px 70px rgba(56, 182, 255, 0.5), 
-                0 0 50px rgba(56, 182, 255, 0.3),
-                0 15px 40px rgba(0, 0, 0, 0.9);
-    padding: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: none;
   }
   
   .project-scene .cube {
     transform: none !important;
     position: relative;
     width: 100%;
-    height: auto;
-    min-height: auto;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    flex: 1;
   }
   
   .project-scene .cube-face {
     position: relative;
     width: 100%;
-    height: auto;
-    min-height: auto;
+    height: 100%;
     transform: none !important;
     border: none;
     background-image: none;
@@ -1277,6 +1418,8 @@ button:hover {
     opacity: 1;
     display: none;
     flex-direction: column;
+    overflow: hidden;
+    flex: 1;
   }
   
   .project-scene .cube-face-front,
@@ -1332,52 +1475,57 @@ button:hover {
   }
   
   .project-image-face {
-    padding: 0;
-    gap: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: none;
   }
   
   .project-image-face img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 0;
-    border-radius: 0;
-    display: block;
+    display: none;
   }
   
-  .project-cube-title {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    margin-top: 40px;
-    padding: 0 40px;
-    text-align: center;
-    font-weight: 600;
-  }
-  
+  .project-cube-title,
+  .project-demo-btn,
   .project-short-description {
-    font-size: 1rem;
-    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .project-mobile-image .project-cube-title {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 0 20px;
+    text-align: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1.2;
+    width: 100%;
+  }
+  
+  .project-mobile-image .project-short-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
     line-height: 1.6;
     width: 100%;
-    padding: 0 40px;
-    text-align: left;
+    padding: 0 20px;
+    text-align: center;
     color: rgba(218, 255, 253, 0.95);
+    flex-shrink: 0;
   }
   
-  .project-demo-btn {
-    padding: 20px 40px;
+  .project-mobile-image .project-demo-btn {
+    padding: 16px 32px;
     font-size: 1.1rem;
-    width: calc(100% - 80px);
-    margin: 0 40px 40px 40px;
+    width: auto;
+    min-width: 200px;
+    margin: 0 auto 20px auto;
     justify-content: center;
     background-color: var(--blue);
     color: white;
     border-radius: 8px;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(56, 182, 255, 0.4);
+    flex-shrink: 0;
+    display: flex;
   }
   
   .project-demo-btn:hover {
@@ -1684,7 +1832,7 @@ button:hover {
   .project-scene {
     max-width: 360px;
     min-height: auto;
-    padding: 0;
+    padding: 60px 0 0 0;
   }
   
   .project-scene .cube {
@@ -1696,7 +1844,10 @@ button:hover {
   }
   
   .project-image-face img {
-    height: 180px;
+    height: auto;
+    min-height: 300px;
+    max-height: 400px;
+    object-fit: contain;
   }
   
   .project-cube-title {
@@ -1736,7 +1887,10 @@ button:hover {
   }
   
   .project-image-face img {
-    height: 160px;
+    height: auto;
+    min-height: 280px;
+    max-height: 380px;
+    object-fit: contain;
   }
   
   .project-cube-title {
@@ -2036,15 +2190,77 @@ button:hover {
     font-size: 1rem;
   }
 
+  .projects-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .projects-carousel {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .projects-carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-item {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 35px;
+    height: 35px;
+  }
+
+  .carousel-arrow-left {
+    left: 5px;
+  }
+
+  .carousel-arrow-right {
+    right: 5px;
+  }
+
+  .carousel-dots {
+    display: flex;
+  }
+
   .project-border {
-    width: 70px;
-    height: 70px;
-    margin: 4px;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
   }
 
   .project-wrapper {
-    width: 55px;
-    height: 55px;
+    width: 240px;
+    height: 240px;
+  }
+
+  .app-title {
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .visit-app {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+
+  .visit-app > i {
+    font-size: 0.95rem;
   }
 }
 

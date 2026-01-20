@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface ProjectModalProps {
   isOpen: boolean
@@ -16,58 +17,58 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
   // Sample project data - you can replace this with actual project data
   const projectData = {
     1: {
-      title: 'Project #1',
-      shortDescription: 'A modern social media platform with real-time messaging and interactive features.',
+      title: 'Axon UI',
+      shortDescription: "Design Faster. Build Better. UI Library for Figma & React. Seamlessly integrate design and development with ready-to-use components",
       description: 'A modern web application built with React and Next.js. This project showcases advanced UI/UX design principles and responsive layouts.',
       technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-      image: 'https://cdn.pixabay.com/photo/2022/12/10/21/41/social-media-7647812_1280.jpg',
+      image: '/AxonUI.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://www.axonui.design/',
     },
     2: {
-      title: 'Project #2',
-      shortDescription: 'Cinema booking system with real-time seat selection and secure payment processing.',
-      description: 'An innovative cinema booking system with real-time seat selection and payment integration.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://cdn.pixabay.com/photo/2019/11/07/20/48/cinema-4609877_1280.jpg',
+      title: 'Personal Finance Dashboard',
+      shortDescription: 'A comprehensive dashboard for managing personal finances with real-time tracking and insights.',
+      description: 'Personal finance dashboard for managing finance. Track your income, expenses, budgets, and savings all in one place with an intuitive and user-friendly interface.',
+      technologies: ['React', 'Three.js', 'Framer Motion', 'CSS3'],
+      image: '/personal finance app.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://mypersonalfinanceapp.netlify.app/',
     },
     3: {
-      title: 'Project #3',
-      shortDescription: 'E-commerce platform for flower delivery with intuitive shopping experience.',
-      description: 'A beautiful e-commerce platform for flower delivery with advanced filtering and search capabilities.',
-      technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-      image: 'https://cdn.pixabay.com/photo/2017/02/15/13/40/tulips-2068692_1280.jpg',
+      title: 'IntegraMind AI',
+      shortDescription: 'Where Business Minds Meet Intelligent Systems. AI-powered automation solutions for businesses.',
+      description: 'Where Business Minds Meet Intelligent Systems. IntegraMind AI helps organizations transform ambition into execution by embedding AI, automation, and data intelligence directly into their operations.',
+      technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+      image: '/integramind.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://integra-mind-ai.vercel.app/',
     },
     4: {
-      title: 'Project #4',
-      shortDescription: 'Creative portfolio website with stunning animations and interactive 3D elements.',
-      description: 'A creative portfolio website with unique animations and interactive elements.',
-      technologies: ['React', 'Three.js', 'Framer Motion', 'CSS3'],
-      image: 'https://cdn.pixabay.com/photo/2015/09/03/17/50/cobweb-921039_1280.jpg',
+      title: 'VDJ',
+      shortDescription: 'Responsive dj marketing site with smooth animations and modern design.',
+      description: 'A responsive DJ marketing website featuring smooth animations powered by Framer Motion, built with Next.js, React, and TypeScript. The site showcases modern design principles with interactive elements and seamless user experience across all devices.',
+      technologies: ['Next.js', 'React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
+      image: '/Vdj.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://vdjtest.netlify.app/',
     },
     5: {
-      title: 'Project #5',
-      shortDescription: '3D visualization tool for architectural designs with immersive real-time rendering.',
-      description: 'A 3D visualization tool for architectural designs with real-time rendering.',
-      technologies: ['React', 'Three.js', 'WebGL', 'Blender'],
-      image: 'https://cdn.pixabay.com/photo/2016/02/27/12/40/sculpture-1225487_1280.jpg',
+      title: 'Groupio Landing',
+      shortDescription: 'Plan your group trip with Groupio. Experience the joy of effortless group travel.',
+      description: 'Plan your group trip with Groupio. Experience the joy of effortless group travel with Groupio. Get your group trip out of the group chat and start your next adventure today!',
+      technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
+      image: '/Grioupio.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://groupiotravel.com/',
     },
     6: {
-      title: 'Project #6',
-      shortDescription: 'Interactive puzzle game with complex maze navigation and engaging mechanics.',
-      description: 'An interactive game with complex maze navigation and puzzle-solving mechanics.',
+      title: 'Resource App',
+      shortDescription: 'Effortlessly access and organize your preferred links and online resources all in one place.',
+      description: 'Effortlessly access and organize your preferred links and online resources all in one place.',
       technologies: ['JavaScript', 'Canvas API', 'WebGL', 'Phaser'],
-      image: 'https://cdn.pixabay.com/photo/2016/10/13/15/23/labyrinth-1738039_1280.jpg',
+      image: '/resoureApp.png',
       link: '#',
-      demoLink: '#',
+      demoLink: 'https://resourseapp.vercel.app/',
     },
   }
 
@@ -84,23 +85,54 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       <button className="project-close-btn" onClick={onClose} aria-label="Close project">
         <i className="fas fa-times"></i>
       </button>
+      <div className="project-mobile-image">
+        <Image 
+          src={project.image} 
+          alt={project.title}
+          width={500}
+          height={300}
+          style={{ width: '100%', height: 'auto' }}
+        />
+          <h2 className="project-cube-title">{project.title}</h2>
+              <p className="project-short-description">{project.shortDescription}</p>
+              {project.demoLink && project.demoLink !== '#' && (
+                <a
+                  href={project.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-demo-btn"
+                >
+                  <i className="fas fa-play"></i>
+                  View Demo
+                </a>
+              )}
+      </div>
+      
       <section className="scene project-scene">
         <div className={`cube show-${activeSide}`} data-side={activeSide}>
           {/* Front Face - Project Image */}
           <div className="cube-face cube-face-front">
             <div className="project-image-face">
-              <img src={project.image} alt={project.title} />
+              <Image 
+                src={project.image} 
+                alt={project.title}
+                width={500}
+                height={300}
+                style={{ width: '100%', height: 'auto', maxWidth: '500px' }}
+              />
               <h2 className="project-cube-title">{project.title}</h2>
               <p className="project-short-description">{project.shortDescription}</p>
-              <a
-                href={project.demoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-demo-btn"
-              >
-                <i className="fas fa-play"></i>
-                View Demo
-              </a>
+              {project.demoLink && project.demoLink !== '#' && (
+                <a
+                  href={project.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-demo-btn"
+                >
+                  <i className="fas fa-play"></i>
+                  View Demo
+                </a>
+              )}
             </div>
           </div>
 
@@ -113,7 +145,7 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
           </div>
 
           {/* Right Face - Technologies */}
-          <div className="cube-face cube-face-right">
+          {/* <div className="cube-face cube-face-right">
             <div className="project-content-face">
               <h3 className="project-section-title">Technologies</h3>
               <div className="tech-tags">
@@ -124,7 +156,7 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Left Face - Project Info */}
           <div className="cube-face cube-face-left">

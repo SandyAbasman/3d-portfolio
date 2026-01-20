@@ -1,5 +1,8 @@
 'use client'
 
+import Image from 'next/image'
+import { useState } from 'react'
+
 export type Side = 'front' | 'right' | 'back' | 'left' | 'top' | 'bottom'
 
 interface CubeProps {
@@ -46,9 +49,12 @@ function CubeFaceFront() {
         </div>
         <div className="image df fd-r">
           <div className="image-wrapper">
-            <img
-              src="https://media.licdn.com/dms/image/v2/D4E03AQHl73QD8fyg7g/profile-displayphoto-shrink_400_400/B4EZdYio8fHIAo-/0/1749537165730?e=1768435200&v=beta&t=Wgq1rBM1jALX-etkqrqk3Ov-1ft9aX_rNiSMkElnZYQ"
+            <Image
+              src="/my-social-photo2.jpeg"
               alt="Sandy Abasman"
+              width={140}
+              height={140}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
         </div>
@@ -162,8 +168,22 @@ interface CubeFaceTopProps {
   onProjectClick?: (projectId: number) => void
 }
 
+const PROJECT_NAMES: Record<number, string> = {
+  1: 'Axon UI',
+  2: 'Finance',
+  3: 'IntegraMind',
+  4: 'VDJ',
+  5: 'Groupio',
+  6: 'Resource',
+}
+
+function getProjectName(num: number): string {
+  return PROJECT_NAMES[num] || `#${num} App`
+}
+
 function CubeFaceTop({ onProjectClick }: CubeFaceTopProps) {
   const projects = Array.from({ length: 6 }, (_, i) => i + 1)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   const handleProjectClick = (projectId: number, e: React.MouseEvent) => {
     e.preventDefault()
@@ -172,9 +192,18 @@ function CubeFaceTop({ onProjectClick }: CubeFaceTopProps) {
     }
   }
 
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length)
+  }
+
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
+  }
+
   return (
     <div className="cube-face cube-face-top">
       <p className="intro-heading"><span>Pro</span>jects</p>
+      {/* Desktop Grid View */}
       <div className="projects">
         {projects.map((num) => (
           <div
@@ -185,13 +214,68 @@ function CubeFaceTop({ onProjectClick }: CubeFaceTopProps) {
           >
             <div className="project-wrapper">
               <div className="visit-wrapper">
-                <p className="app-title">#{num} App</p>
-                <div className="visit-app" onClick={(e) => handleProjectClick(num, e)} >
+                <p className="app-title">
+                  {getProjectName(num)}
+                </p>
+                <div className="visit-app">
                   View Details <i className="fas fa-eye"></i>
                 </div>
               </div>
             </div>
           </div>
+        ))}
+      </div>
+      {/* Mobile Carousel View */}
+      <div className="projects-container">
+        <button 
+          className="carousel-arrow carousel-arrow-left" 
+          onClick={prevProject}
+          aria-label="Previous project"
+        >
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        <div className="projects-carousel">
+          <div 
+            className="projects-carousel-track"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {projects.map((num) => (
+              <div
+                key={num}
+                className="project-border carousel-item"
+                onClick={(e) => handleProjectClick(num, e)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="project-wrapper">
+                  <div className="visit-wrapper">
+                    <p className="app-title">
+                      {getProjectName(num)}
+                    </p>
+                    <div className="visit-app" onClick={(e) => handleProjectClick(num, e)} >
+                      View Details <i className="fas fa-eye"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button 
+          className="carousel-arrow carousel-arrow-right" 
+          onClick={nextProject}
+          aria-label="Next project"
+        >
+          <i className="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div className="carousel-dots">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Go to project ${index + 1}`}
+          />
         ))}
       </div>
     </div>
