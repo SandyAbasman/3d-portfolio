@@ -23,7 +23,7 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
       image: '/AxonUI.png',
       link: '#',
-      demoLink: 'https://www.axonui.design/',
+      demoLink: 'https://github.com/SandyAbasman/Axon-UI',
     },
     2: {
       title: 'Personal Finance Dashboard',
