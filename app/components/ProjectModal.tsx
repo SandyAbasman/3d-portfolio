@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 
 interface ProjectModalProps {
@@ -9,8 +9,117 @@ interface ProjectModalProps {
   onClose: () => void
 }
 
+type CubeSide = 'front' | 'right' | 'back' | 'left' | 'top' | 'bottom'
+
 export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModalProps) {
-  const [activeSide, setActiveSide] = useState<'front' | 'right' | 'back' | 'left' | 'top' | 'bottom'>('front')
+  const [activeSide, setActiveSide] = useState<CubeSide>('front')
+  const containerRef = useRef<HTMLDivElement>(null)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const lastScrollTime = useRef<number>(0)
+
+  // Define the order of sides for navigation
+  const sidesOrder: CubeSide[] = ['front', 'right', 'back', 'left', 'top', 'bottom']
+
+  const getNextSide = useCallback((direction: 'next' | 'prev'): CubeSide => {
+    const currentIndex = sidesOrder.indexOf(activeSide)
+    if (direction === 'next') {
+      return sidesOrder[(currentIndex + 1) % sidesOrder.length]
+    } else {
+      return sidesOrder[(currentIndex - 1 + sidesOrder.length) % sidesOrder.length]
+    }
+  }, [activeSide])
+
+  // Handle scroll/wheel events
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      
+      // Throttle scroll events
+      const now = Date.now()
+      if (now - lastScrollTime.current < 500) return
+      lastScrollTime.current = now
+
+      if (e.deltaY > 0) {
+        setActiveSide(getNextSide('next'))
+      } else if (e.deltaY < 0) {
+        setActiveSide(getNextSide('prev'))
+      }
+    }
+
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false })
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('wheel', handleWheel)
+      }
+    }
+  }, [isOpen, getNextSide])
+
+  // Handle touch/swipe events
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      }
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStartRef.current) return
+
+      const touchEnd = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY
+      }
+
+      const deltaX = touchEnd.x - touchStartRef.current.x
+      const deltaY = touchEnd.y - touchStartRef.current.y
+      const minSwipeDistance = 50
+
+      // Determine swipe direction based on larger movement
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (Math.abs(deltaX) > minSwipeDistance) {
+          if (deltaX > 0) {
+            setActiveSide(getNextSide('prev')) // Swipe right = previous
+          } else {
+            setActiveSide(getNextSide('next')) // Swipe left = next
+          }
+        }
+      } else {
+        // Vertical swipe
+        if (Math.abs(deltaY) > minSwipeDistance) {
+          if (deltaY > 0) {
+            setActiveSide(getNextSide('prev')) // Swipe down = previous
+          } else {
+            setActiveSide(getNextSide('next')) // Swipe up = next
+          }
+        }
+      }
+
+      touchStartRef.current = null
+    }
+
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('touchstart', handleTouchStart, { passive: true })
+      container.addEventListener('touchend', handleTouchEnd, { passive: true })
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('touchstart', handleTouchStart)
+        container.removeEventListener('touchend', handleTouchEnd)
+      }
+    }
+  }, [isOpen, getNextSide])
 
   if (!isOpen || projectId === null) return null
 
@@ -81,7 +190,7 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
   }
 
   return (
-    <div className="project-cube-container">
+    <div className="project-cube-container" ref={containerRef}>
       <button className="project-close-btn" onClick={onClose} aria-label="Close project">
         <i className="fas fa-times"></i>
       </button>
