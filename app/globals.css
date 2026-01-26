@@ -723,9 +723,9 @@ button:hover {
   }
 
   main {
-    padding: 70px 15px 20px 15px;
+    padding: 20px 15px 100px 15px;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     height: auto;
@@ -735,8 +735,8 @@ button:hover {
   }
   
   main.two-cubes {
-    justify-content: flex-start;
-    padding-top: 70px;
+    justify-content: center;
+    padding-top: 20px;
   }
 
   /* Hide desktop menu on mobile */
@@ -744,13 +744,13 @@ button:hover {
     display: none !important;
   }
 
-  /* Show mobile menu */
+  /* Hide mobile menu - using arrows instead */
   .menu-mobile {
-    display: block;
+    display: none;
   }
 
   .hamburger-btn {
-    display: block;
+    display: none;
   }
 
   .scene {
@@ -2343,14 +2343,14 @@ button:hover {
 /* Small Mobile Styles */
 @media (max-width: 480px) {
   main {
-    padding: 60px 10px 15px 10px;
+    padding: 20px 10px 100px 10px;
     justify-content: center;
     align-items: center;
     gap: 20px;
   }
   
   main.two-cubes {
-    padding-top: 60px;
+    padding-top: 20px;
     justify-content: center;
   }
 

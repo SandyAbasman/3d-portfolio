@@ -11,11 +11,11 @@ const sidesOrder: CubeSide[] = ['front', 'right', 'back', 'left', 'top', 'bottom
 
 const sideLabels: Record<CubeSide, string> = {
   front: 'About',
-  right: 'Projects', 
-  back: 'Experience',
-  left: 'Skills',
-  top: 'Contact',
-  bottom: 'More'
+  right: 'Work', 
+  back: 'Education',
+  left: 'Certification',
+  top: 'Projects',
+  bottom: 'Contact'
 }
 
 export default function Home() {
