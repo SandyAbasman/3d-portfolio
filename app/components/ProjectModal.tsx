@@ -425,6 +425,38 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
           </div>
         </div>
       </section>
+      
+      {/* Navigation arrows under the cube */}
+      <div className="cube-nav-arrows">
+        <button 
+          className="cube-nav-arrow cube-nav-prev" 
+          onClick={goToPrevSide}
+          aria-label="Previous section"
+        >
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        
+        <div className="cube-nav-info">
+          <span className="cube-nav-current">{activeSide.charAt(0).toUpperCase() + activeSide.slice(1)}</span>
+          <div className="cube-nav-dots">
+            {sidesOrder.map((side) => (
+              <span 
+                key={side}
+                className={`cube-nav-dot ${activeSide === side ? 'active' : ''}`}
+                onClick={() => setActiveSide(side)}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <button 
+          className="cube-nav-arrow cube-nav-next" 
+          onClick={goToNextSide}
+          aria-label="Next section"
+        >
+          <i className="fas fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
   )
 }
