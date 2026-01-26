@@ -16,20 +16,27 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartRef = useRef<{ x: number; y: number } | null>(null)
   const lastScrollTime = useRef<number>(0)
+  const isSwiping = useRef<boolean>(false)
 
   // Define the order of sides for navigation
   const sidesOrder: CubeSide[] = ['front', 'right', 'back', 'left', 'top', 'bottom']
 
-  const getNextSide = useCallback((direction: 'next' | 'prev'): CubeSide => {
-    const currentIndex = sidesOrder.indexOf(activeSide)
-    if (direction === 'next') {
+  // Navigate to next/prev side
+  const goToNextSide = useCallback(() => {
+    setActiveSide(prev => {
+      const currentIndex = sidesOrder.indexOf(prev)
       return sidesOrder[(currentIndex + 1) % sidesOrder.length]
-    } else {
-      return sidesOrder[(currentIndex - 1 + sidesOrder.length) % sidesOrder.length]
-    }
-  }, [activeSide])
+    })
+  }, [])
 
-  // Handle scroll/wheel events
+  const goToPrevSide = useCallback(() => {
+    setActiveSide(prev => {
+      const currentIndex = sidesOrder.indexOf(prev)
+      return sidesOrder[(currentIndex - 1 + sidesOrder.length) % sidesOrder.length]
+    })
+  }, [])
+
+  // Handle scroll/wheel events (desktop)
   useEffect(() => {
     if (!isOpen) return
 
@@ -42,33 +49,37 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       lastScrollTime.current = now
 
       if (e.deltaY > 0) {
-        setActiveSide(getNextSide('next'))
+        goToNextSide()
       } else if (e.deltaY < 0) {
-        setActiveSide(getNextSide('prev'))
+        goToPrevSide()
       }
     }
 
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false })
-    }
+    // Attach to document to capture all wheel events when modal is open
+    document.addEventListener('wheel', handleWheel, { passive: false })
 
     return () => {
-      if (container) {
-        container.removeEventListener('wheel', handleWheel)
-      }
+      document.removeEventListener('wheel', handleWheel)
     }
-  }, [isOpen, getNextSide])
+  }, [isOpen, goToNextSide, goToPrevSide])
 
-  // Handle touch/swipe events - works on both mobile and desktop
+  // Handle touch/swipe events (mobile) - attached to document for reliability
   useEffect(() => {
     if (!isOpen) return
 
     const handleTouchStart = (e: TouchEvent) => {
-      // Don't capture touches on links/buttons
       const target = e.target as HTMLElement
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+      
+      // Don't capture touches on interactive elements
+      if (
+        target.tagName === 'A' || 
+        target.tagName === 'BUTTON' || 
+        target.closest('a') || 
+        target.closest('button') ||
+        target.classList.contains('swipe-dot')
+      ) {
         touchStartRef.current = null
+        isSwiping.current = false
         return
       }
       
@@ -76,11 +87,20 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
         x: e.touches[0].clientX,
         y: e.touches[0].clientY
       }
+      isSwiping.current = false
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      // Prevent page scrolling while swiping on the modal
-      if (touchStartRef.current) {
+      if (!touchStartRef.current) return
+      
+      const currentX = e.touches[0].clientX
+      const currentY = e.touches[0].clientY
+      const deltaX = Math.abs(currentX - touchStartRef.current.x)
+      const deltaY = Math.abs(currentY - touchStartRef.current.y)
+      
+      // If moved more than 10px, we're swiping - prevent scroll
+      if (deltaX > 10 || deltaY > 10) {
+        isSwiping.current = true
         e.preventDefault()
       }
     }
@@ -95,45 +115,42 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
 
       const deltaX = touchEnd.x - touchStartRef.current.x
       const deltaY = touchEnd.y - touchStartRef.current.y
-      const minSwipeDistance = 50
+      const minSwipeDistance = 30 // Reduced for easier swiping
 
-      // Determine swipe direction based on larger movement (horizontal takes priority)
+      // Determine swipe direction
       if (Math.abs(deltaX) > minSwipeDistance || Math.abs(deltaY) > minSwipeDistance) {
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
           // Horizontal swipe
           if (deltaX > 0) {
-            setActiveSide(getNextSide('prev')) // Swipe right = previous
+            goToPrevSide() // Swipe right = previous
           } else {
-            setActiveSide(getNextSide('next')) // Swipe left = next
+            goToNextSide() // Swipe left = next
           }
         } else {
           // Vertical swipe
           if (deltaY > 0) {
-            setActiveSide(getNextSide('prev')) // Swipe down = previous
+            goToPrevSide() // Swipe down = previous
           } else {
-            setActiveSide(getNextSide('next')) // Swipe up = next
+            goToNextSide() // Swipe up = next
           }
         }
       }
 
       touchStartRef.current = null
+      isSwiping.current = false
     }
 
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener('touchstart', handleTouchStart, { passive: true })
-      container.addEventListener('touchmove', handleTouchMove, { passive: false })
-      container.addEventListener('touchend', handleTouchEnd, { passive: true })
-    }
+    // Attach to document for reliable mobile touch capture
+    document.addEventListener('touchstart', handleTouchStart, { passive: true })
+    document.addEventListener('touchmove', handleTouchMove, { passive: false })
+    document.addEventListener('touchend', handleTouchEnd, { passive: true })
 
     return () => {
-      if (container) {
-        container.removeEventListener('touchstart', handleTouchStart)
-        container.removeEventListener('touchmove', handleTouchMove)
-        container.removeEventListener('touchend', handleTouchEnd)
-      }
+      document.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
     }
-  }, [isOpen, getNextSide])
+  }, [isOpen, goToNextSide, goToPrevSide])
 
   if (!isOpen || projectId === null) return null
 
@@ -207,7 +224,6 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
     <div 
       className="project-cube-container" 
       ref={containerRef}
-      style={{ touchAction: 'none' }}
     >
       <button className="project-close-btn" onClick={onClose} aria-label="Close project">
         <i className="fas fa-times"></i>
