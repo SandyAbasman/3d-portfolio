@@ -1012,6 +1012,51 @@ button:hover {
   display: none;
 }
 
+/* Mobile swipe indicator dots */
+.mobile-swipe-indicator {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.swipe-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(56, 182, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.swipe-dot.active {
+  background-color: var(--blue);
+  box-shadow: 0 0 10px var(--blue);
+  transform: scale(1.2);
+}
+
+.swipe-dot:hover {
+  background-color: rgba(56, 182, 255, 0.6);
+}
+
+.mobile-content-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  min-height: 200px;
+}
+
+.swipe-hint {
+  display: none;
+  font-size: 0.85rem;
+  color: rgba(218, 255, 253, 0.6);
+  margin-top: 20px;
+  text-align: center;
+}
+
 @keyframes fadeInCube {
   from {
     opacity: 0;
@@ -1365,6 +1410,58 @@ button:hover {
     width: 100%;
     height: auto;
     display: block;
+  }
+  
+  .mobile-swipe-indicator {
+    display: flex;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .swipe-hint {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .mobile-content-section {
+    width: 100%;
+    padding: 40px 20px;
+  }
+  
+  .mobile-content-section .project-section-title {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .mobile-content-section .project-description-text {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .mobile-content-section .tech-tags {
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .mobile-content-section .project-details {
+    padding: 0;
+    text-align: center;
+  }
+  
+  .mobile-content-section .project-visit-btn {
+    width: auto;
+    margin: 0;
+  }
+  
+  .mobile-content-section .project-nav-btns {
+    width: 100%;
+    max-width: 280px;
+    margin: 20px auto 0 auto;
   }
   
   @keyframes fadeInOverlay {

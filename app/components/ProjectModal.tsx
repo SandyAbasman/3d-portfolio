@@ -60,14 +60,28 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
     }
   }, [isOpen, getNextSide])
 
-  // Handle touch/swipe events
+  // Handle touch/swipe events - works on both mobile and desktop
   useEffect(() => {
     if (!isOpen) return
 
     const handleTouchStart = (e: TouchEvent) => {
+      // Don't capture touches on links/buttons
+      const target = e.target as HTMLElement
+      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+        touchStartRef.current = null
+        return
+      }
+      
       touchStartRef.current = {
         x: e.touches[0].clientX,
         y: e.touches[0].clientY
+      }
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      // Prevent page scrolling while swiping on the modal
+      if (touchStartRef.current) {
+        e.preventDefault()
       }
     }
 
@@ -83,19 +97,17 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       const deltaY = touchEnd.y - touchStartRef.current.y
       const minSwipeDistance = 50
 
-      // Determine swipe direction based on larger movement
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal swipe
-        if (Math.abs(deltaX) > minSwipeDistance) {
+      // Determine swipe direction based on larger movement (horizontal takes priority)
+      if (Math.abs(deltaX) > minSwipeDistance || Math.abs(deltaY) > minSwipeDistance) {
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          // Horizontal swipe
           if (deltaX > 0) {
             setActiveSide(getNextSide('prev')) // Swipe right = previous
           } else {
             setActiveSide(getNextSide('next')) // Swipe left = next
           }
-        }
-      } else {
-        // Vertical swipe
-        if (Math.abs(deltaY) > minSwipeDistance) {
+        } else {
+          // Vertical swipe
           if (deltaY > 0) {
             setActiveSide(getNextSide('prev')) // Swipe down = previous
           } else {
@@ -110,12 +122,14 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
     const container = containerRef.current
     if (container) {
       container.addEventListener('touchstart', handleTouchStart, { passive: true })
+      container.addEventListener('touchmove', handleTouchMove, { passive: false })
       container.addEventListener('touchend', handleTouchEnd, { passive: true })
     }
 
     return () => {
       if (container) {
         container.removeEventListener('touchstart', handleTouchStart)
+        container.removeEventListener('touchmove', handleTouchMove)
         container.removeEventListener('touchend', handleTouchEnd)
       }
     }
@@ -190,31 +204,117 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
   }
 
   return (
-    <div className="project-cube-container" ref={containerRef}>
+    <div 
+      className="project-cube-container" 
+      ref={containerRef}
+      style={{ touchAction: 'none' }}
+    >
       <button className="project-close-btn" onClick={onClose} aria-label="Close project">
         <i className="fas fa-times"></i>
       </button>
       <div className="project-mobile-image">
-        <Image 
-          src={project.image} 
-          alt={project.title}
-          width={500}
-          height={300}
-          style={{ width: '100%', height: 'auto' }}
-        />
-          <h2 className="project-cube-title">{project.title}</h2>
-              <p className="project-short-description">{project.shortDescription}</p>
-              {project.demoLink && project.demoLink !== '#' && (
-                <a
-                  href={project.demoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-demo-btn"
-                >
-                  <i className="fas fa-play"></i>
-                  View Demo
-                </a>
-              )}
+        {/* Mobile swipe indicator */}
+        <div className="mobile-swipe-indicator">
+          {sidesOrder.map((side, index) => (
+            <span 
+              key={side} 
+              className={`swipe-dot ${activeSide === side ? 'active' : ''}`}
+              onClick={() => setActiveSide(side)}
+            />
+          ))}
+        </div>
+        
+        {/* Front - Main project info */}
+        {activeSide === 'front' && (
+          <>
+            <Image 
+              src={project.image} 
+              alt={project.title}
+              width={500}
+              height={300}
+              style={{ width: '100%', height: 'auto' }}
+            />
+            <h2 className="project-cube-title">{project.title}</h2>
+            <p className="project-short-description">{project.shortDescription}</p>
+            {project.demoLink && project.demoLink !== '#' && (
+              <a
+                href={project.demoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-demo-btn"
+              >
+                <i className="fas fa-play"></i>
+                View Demo
+              </a>
+            )}
+          </>
+        )}
+        
+        {/* Back - Description */}
+        {activeSide === 'back' && (
+          <div className="mobile-content-section">
+            <h3 className="project-section-title">Description</h3>
+            <p className="project-description-text">{project.description}</p>
+          </div>
+        )}
+        
+        {/* Right - Technologies */}
+        {activeSide === 'right' && (
+          <div className="mobile-content-section">
+            <h3 className="project-section-title">Technologies</h3>
+            <div className="tech-tags">
+              {project.technologies.map((tech, index) => (
+                <span key={index} className="tech-tag">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Left - Project Details */}
+        {activeSide === 'left' && (
+          <div className="mobile-content-section">
+            <h3 className="project-section-title">Project Details</h3>
+            <div className="project-details">
+              <p><strong>Title:</strong> {project.title}</p>
+              <p><strong>Technologies:</strong> {project.technologies.join(', ')}</p>
+            </div>
+          </div>
+        )}
+        
+        {/* Top - Visit Link */}
+        {activeSide === 'top' && (
+          <div className="mobile-content-section">
+            <h3 className="project-section-title">Visit Project</h3>
+            {project.demoLink && project.demoLink !== '#' && (
+              <a
+                href={project.demoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-visit-btn"
+              >
+                <i className="fas fa-external-link-alt"></i>
+                Open Project
+              </a>
+            )}
+          </div>
+        )}
+        
+        {/* Bottom - Navigation hint */}
+        {activeSide === 'bottom' && (
+          <div className="mobile-content-section">
+            <h3 className="project-section-title">Navigation</h3>
+            <p className="project-description-text">Swipe left or right to explore different sections of this project.</p>
+            <div className="project-nav-btns">
+              <button onClick={() => setActiveSide('front')} className="project-nav-btn">Overview</button>
+              <button onClick={() => setActiveSide('back')} className="project-nav-btn">Description</button>
+              <button onClick={() => setActiveSide('right')} className="project-nav-btn">Technologies</button>
+            </div>
+          </div>
+        )}
+        
+        <p className="swipe-hint">Swipe to explore</p>
       </div>
       
       <section className="scene project-scene">
