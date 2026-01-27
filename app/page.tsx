@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from "react"
 import Cube from './components/Cube'
 import Menu from './components/Menu'
 import ProjectModal from './components/ProjectModal'
@@ -22,6 +22,8 @@ export default function Home() {
   const [activeSide, setActiveSide] = useState<CubeSide>('front')
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const lastScrollTime = useRef<number>(0)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
 
   const handleSideChange = (side: CubeSide) => {
     setActiveSide(side)
@@ -40,6 +42,72 @@ export default function Home() {
       return sidesOrder[(currentIndex - 1 + sidesOrder.length) % sidesOrder.length]
     })
   }, [])
+
+  // Scroll to change cube side (desktop)
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (isModalOpen) return
+
+      // Only react to vertical scroll
+      if (Math.abs(e.deltaY) < 5) return
+
+      const now = Date.now()
+      if (now - lastScrollTime.current < 500) return
+      lastScrollTime.current = now
+
+      if (e.deltaY > 0) {
+        goToNextSide()
+      } else {
+        goToPrevSide()
+      }
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: true })
+    return () => window.removeEventListener("wheel", handleWheel)
+  }, [isModalOpen, goToNextSide, goToPrevSide])
+
+  // Swipe to change cube side (mobile)
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isModalOpen) return
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+      }
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isModalOpen || !touchStartRef.current) return
+
+      const end = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY,
+      }
+
+      const deltaX = end.x - touchStartRef.current.x
+      const deltaY = end.y - touchStartRef.current.y
+      const minSwipe = 40
+
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > minSwipe) {
+        // Vertical swipe: down = previous, up = next
+        if (deltaY > 0) {
+          goToPrevSide()
+        } else {
+          goToNextSide()
+        }
+      }
+
+      touchStartRef.current = null
+    }
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true })
+    window.addEventListener("touchend", handleTouchEnd, { passive: true })
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [isModalOpen, goToNextSide, goToPrevSide])
 
   const handleProjectClick = (projectId: number) => {
     setSelectedProject(projectId)
