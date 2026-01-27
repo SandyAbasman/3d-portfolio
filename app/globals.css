@@ -1168,10 +1168,10 @@ button:hover {
 }
 
 .project-close-btn {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  background: transparent;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
   border: 2px solid var(--blue);
   color: var(--blue);
   width: 40px;
@@ -1183,7 +1183,7 @@ button:hover {
   align-items: center;
   font-size: 1.2rem;
   transition: all 0.3s;
-  z-index: 100;
+  z-index: 1001;
 }
 
 .project-close-btn:hover {
@@ -1441,9 +1441,10 @@ button:hover {
   }
 
   .project-close-btn {
-    top: -40px;
-    right: 50%;
-    transform: translateX(50%);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    transform: none;
   }
   
   .cube-nav-arrows {
@@ -2061,9 +2062,10 @@ button:hover {
   }
   
   .project-close-btn {
-    top: -40px;
-    right: 50%;
-    transform: translateX(50%);
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    transform: none;
   }
   
   .cube-face {

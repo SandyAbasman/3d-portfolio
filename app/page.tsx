@@ -88,9 +88,9 @@ export default function Home() {
       const deltaY = end.y - touchStartRef.current.y
       const minSwipe = 40
 
-      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > minSwipe) {
-        // Vertical swipe: down = previous, up = next
-        if (deltaY > 0) {
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipe) {
+        // Horizontal swipe: right = previous, left = next
+        if (deltaX > 0) {
           goToPrevSide()
         } else {
           goToNextSide()
