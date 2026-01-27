@@ -1238,7 +1238,7 @@ button:hover {
   background-color: var(--blue);
   color: black;
   padding: 12px 30px;
-  border-radius: 5px;
+  border-radius: 999px;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 600;
@@ -1764,7 +1764,7 @@ button:hover {
     justify-content: center;
     background-color: var(--blue);
     color: white;
-    border-radius: 8px;
+    border-radius: 999px;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(56, 182, 255, 0.4);
     flex-shrink: 0;
