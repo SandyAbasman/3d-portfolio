@@ -149,6 +149,7 @@ export default function Home() {
                     />
                   ))}
                 </div>
+                <span className="cube-swipe-label">Swipe</span>
               </div>
               
               <button 

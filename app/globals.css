@@ -1138,6 +1138,15 @@ button:hover {
   background-color: rgba(56, 182, 255, 0.6);
 }
 
+.cube-swipe-label {
+  display: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(218, 255, 253, 0.7);
+  margin-top: 4px;
+}
+
 /* Main cube container */
 .main-cube-container {
   display: flex;
@@ -1611,6 +1620,10 @@ button:hover {
   .cube-nav-dot {
     width: 8px;
     height: 8px;
+  }
+  
+  .cube-swipe-label {
+    display: block;
   }
   
   /* Main cube navigation on mobile */
