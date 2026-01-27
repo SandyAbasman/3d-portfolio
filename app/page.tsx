@@ -129,13 +129,16 @@ export default function Home() {
           {/* Navigation arrows under the main cube */}
           {!isModalOpen && (
             <div className="cube-nav-arrows main-cube-nav">
-              <button 
-                className="cube-nav-arrow cube-nav-prev" 
-                onClick={goToPrevSide}
-                aria-label="Previous section"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
+              <div className="cube-nav-arrow-wrapper">
+                <button 
+                  className="cube-nav-arrow cube-nav-prev" 
+                  onClick={goToPrevSide}
+                  aria-label="Previous section"
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <span className="cube-swipe-label">Swipe left</span>
+              </div>
               
               <div className="cube-nav-info">
                 <span className="cube-nav-current">{sideLabels[activeSide]}</span>
@@ -149,16 +152,18 @@ export default function Home() {
                     />
                   ))}
                 </div>
-                <span className="cube-swipe-label">Swipe</span>
               </div>
               
-              <button 
-                className="cube-nav-arrow cube-nav-next" 
-                onClick={goToNextSide}
-                aria-label="Next section"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
+              <div className="cube-nav-arrow-wrapper">
+                <button 
+                  className="cube-nav-arrow cube-nav-next" 
+                  onClick={goToNextSide}
+                  aria-label="Next section"
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+                <span className="cube-swipe-label">Swipe right</span>
+              </div>
             </div>
           )}
         </div>

@@ -1138,13 +1138,20 @@ button:hover {
   background-color: rgba(56, 182, 255, 0.6);
 }
 
+.cube-nav-arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .cube-swipe-label {
   display: none;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: rgba(218, 255, 253, 0.7);
-  margin-top: 4px;
+  letter-spacing: 0.1em;
+  color: rgba(218, 255, 253, 0.6);
+  white-space: nowrap;
 }
 
 /* Main cube container */
@@ -1624,6 +1631,11 @@ button:hover {
   
   .cube-swipe-label {
     display: block;
+    font-size: 0.65rem;
+  }
+  
+  .cube-nav-arrow-wrapper {
+    gap: 6px;
   }
   
   /* Main cube navigation on mobile */
