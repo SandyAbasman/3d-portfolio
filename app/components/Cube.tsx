@@ -65,25 +65,31 @@ function CubeFaceFront() {
 
 function CubeFaceBack() {
   return (
-    <div className="cube-face cube-face-back">
+    <div className="cube-face cube-face-back education-face">
       <p className="intro-heading">Educa<span>tion</span></p>
-      <div className="work-edu-section df fd-r">
-        <h4 className="work-edu-heading date">2021-2023</h4>
-        <div className="work-edu-info">
-          <h4 className="work-edu-heading company">42 Abu Dhabi</h4>
-          <ul>
-            <li>Computer Software Engineering</li>
-          </ul>
+      <div className="work-edu-list">
+        <div className="work-edu-section df fd-r">
+          <div className="work-edu-date-col">
+            <h4 className="work-edu-heading date">2021-2023</h4>
+          </div>
+          <div className="work-edu-info">
+            <h4 className="work-edu-heading company">42 Abu Dhabi</h4>
+            <ul>
+              <li>Computer Software Engineering</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div className="work-edu-section df fd-r">
-        <h4 className="work-edu-heading date">2018-2022</h4>
-        <div className="work-edu-info">
-          <h4 className="work-edu-heading company">University of Calabar</h4>
-          <ul>
-            <li>Bsc, Computer Science</li>
-          </ul>
+        <div className="work-edu-section df fd-r">
+          <div className="work-edu-date-col">
+            <h4 className="work-edu-heading date">2018-2022</h4>
+          </div>
+          <div className="work-edu-info">
+            <h4 className="work-edu-heading company">University of Calabar</h4>
+            <ul>
+              <li>Bsc, Computer Science</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -92,12 +98,15 @@ function CubeFaceBack() {
 
 function CubeFaceRight() {
   return (
-    <div className="cube-face cube-face-right">
+    <div className="cube-face cube-face-right work-face">
       <p className="intro-heading">Wo<span>rk</span></p>
-      <div className="work-edu-section df fd-r">
-        <h4 className="work-edu-heading date">2025-2026</h4>
-        <div className="work-edu-info">
-          <h4 className="work-edu-heading company">Freelancing</h4>
+      <div className="work-edu-list">
+        <div className="work-edu-section df fd-r">
+          <div className="work-edu-date-col">
+            <h4 className="work-edu-heading date">2025-2026</h4>
+          </div>
+          <div className="work-edu-info">
+            <h4 className="work-edu-heading company">Freelancing</h4>
           <ul>
             <li>
               Built and shipped responsive web applications using React,
@@ -115,27 +124,30 @@ function CubeFaceRight() {
             </li>
           </ul>
         </div>
-      </div>
+        </div>
 
-      <div className="work-edu-section df fd-r">
-        <h4 className="work-edu-heading date">2024-2025</h4>
-        <div className="work-edu-info">
-          <h4 className="work-edu-heading company">Frontend Developer</h4>
-          <p>MVP Application & Game Design L.L.C.</p>
-          <ul>
-            <li>
-              Built responsive, interactive UI using React, TypeScript,
-              and Tailwind CSS.
-            </li>
-            <li>
-              Worked closely with designers using Figma to deliver
-              pixel-perfect interfaces
-            </li>
-            <li>
-              Optimized UI performance and contributed to frontend
-              architecture.
-            </li>
-          </ul>
+        <div className="work-edu-section df fd-r">
+          <div className="work-edu-date-col">
+            <h4 className="work-edu-heading date">2024-2025</h4>
+          </div>
+          <div className="work-edu-info">
+            <h4 className="work-edu-heading company">Frontend Developer</h4>
+            <p>MVP Application & Game Design L.L.C.</p>
+            <ul>
+              <li>
+                Built responsive, interactive UI using React, TypeScript,
+                and Tailwind CSS.
+              </li>
+              <li>
+                Worked closely with designers using Figma to deliver
+                pixel-perfect interfaces
+              </li>
+              <li>
+                Optimized UI performance and contributed to frontend
+                architecture.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
