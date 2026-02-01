@@ -34,15 +34,15 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
   // Sample project data - you can replace this with actual project data
   const projectData = {
     1: {
-      title: 'Axon UI',
+      title: 'IntegraMind AI',
       shortDescription:
-        'Design Faster. Build Better. UI Library for Figma & React. Seamlessly integrate design and development with ready-to-use components',
+        'Where Business Minds Meet Intelligent Systems. AI-powered automation solutions for businesses.',
       description:
-        'A modern web application built with React and Next.js. This project showcases advanced UI/UX design principles and responsive layouts.',
-      technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-      image: '/AxonUI.png',
+        'Where Business Minds Meet Intelligent Systems. IntegraMind AI helps organizations transform ambition into execution by embedding AI, automation, and data intelligence directly into their operations.',
+      technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+      image: '/integramind.png',
       link: '#',
-      demoLink: 'https://www.figma.com/community/file/1462149115513609993/axon-ui-library',
+      demoLink: 'https://www.integramindai.com/',
     },
     2: {
       title: 'Personal Finance Dashboard',
@@ -56,15 +56,15 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       demoLink: 'https://mypersonalfinanceapp.netlify.app/',
     },
     3: {
-      title: 'IntegraMind AI',
+      title: 'Axon UI',
       shortDescription:
-        'Where Business Minds Meet Intelligent Systems. AI-powered automation solutions for businesses.',
+        'Design Faster. Build Better. UI Library for Figma & React. Seamlessly integrate design and development with ready-to-use components',
       description:
-        'Where Business Minds Meet Intelligent Systems. IntegraMind AI helps organizations transform ambition into execution by embedding AI, automation, and data intelligence directly into their operations.',
-      technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-      image: '/integramind.png',
+        'A modern web application built with React and Next.js. This project showcases advanced UI/UX design principles and responsive layouts.',
+      technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
+      image: '/AxonUI.png',
       link: '#',
-      demoLink: 'https://integra-mind-ai.vercel.app/',
+      demoLink: 'https://www.figma.com/community/file/1462149115513609993/axon-ui-library',
     },
     4: {
       title: 'VDJ',
