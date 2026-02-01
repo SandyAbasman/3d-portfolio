@@ -45,15 +45,14 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       demoLink: 'https://www.integramindai.com/',
     },
     2: {
-      title: 'Personal Finance Dashboard',
-      shortDescription:
-        'A comprehensive dashboard for managing personal finances with real-time tracking and insights.',
+      title: 'VDJ',
+      shortDescription: 'Responsive dj marketing site with smooth animations and modern design.',
       description:
-        'Personal finance dashboard for managing finance. Track your income, expenses, budgets, and savings all in one place with an intuitive and user-friendly interface.',
-      technologies: ['React', 'Three.js', 'Framer Motion', 'CSS3'],
-      image: '/personal finance app.png',
+        'A responsive DJ marketing website featuring smooth animations powered by Framer Motion, built with Next.js, React, and TypeScript. The site showcases modern design principles with interactive elements and seamless user experience across all devices.',
+      technologies: ['Next.js', 'React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
+      image: '/Vdj.png',
       link: '#',
-      demoLink: 'https://mypersonalfinanceapp.netlify.app/',
+      demoLink: 'https://vdjtest.netlify.app/',
     },
     3: {
       title: 'Axon UI',
@@ -67,14 +66,15 @@ export default function ProjectModal({ isOpen, projectId, onClose }: ProjectModa
       demoLink: 'https://www.figma.com/community/file/1462149115513609993/axon-ui-library',
     },
     4: {
-      title: 'VDJ',
-      shortDescription: 'Responsive dj marketing site with smooth animations and modern design.',
+      title: 'Personal Finance Dashboard',
+      shortDescription:
+        'A comprehensive dashboard for managing personal finances with real-time tracking and insights.',
       description:
-        'A responsive DJ marketing website featuring smooth animations powered by Framer Motion, built with Next.js, React, and TypeScript. The site showcases modern design principles with interactive elements and seamless user experience across all devices.',
-      technologies: ['Next.js', 'React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
-      image: '/Vdj.png',
+        'Personal finance dashboard for managing finance. Track your income, expenses, budgets, and savings all in one place with an intuitive and user-friendly interface.',
+      technologies: ['React', 'Three.js', 'Framer Motion', 'CSS3'],
+      image: '/personal finance app.png',
       link: '#',
-      demoLink: 'https://vdjtest.netlify.app/',
+      demoLink: 'https://mypersonalfinanceapp.netlify.app/',
     },
     5: {
       title: 'Groupio Landing',

@@ -552,9 +552,8 @@ button:hover {
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(2) > .project-wrapper {
-  background-image: url("/personal finance app.png");
+  background-image: url("/Vdj.png");
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(3) > .project-wrapper {
@@ -563,8 +562,9 @@ button:hover {
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(4) > .project-wrapper {
-  background-image: url("/Vdj.png");
+  background-image: url("/personal finance app.png");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(5) > .project-wrapper {
