@@ -181,9 +181,9 @@ interface CubeFaceTopProps {
 }
 
 const PROJECT_NAMES: Record<number, string> = {
-  1: 'Axon UI',
+  1: 'IntegraMind\u00A0AI',
   2: 'Finance',
-  3: 'IntegraMind',
+  3: 'Axon UI',
   4: 'VDJ',
   5: 'Groupio',
   6: 'Resource',

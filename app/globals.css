@@ -547,7 +547,7 @@ button:hover {
 }
 
 .project-border:nth-of-type(1) > .project-wrapper {
-  background-image: url("/AxonUI.png");
+  background-image: url("/integramind.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -558,7 +558,7 @@ button:hover {
   background-repeat: no-repeat;
 }
 .project-border:nth-of-type(3) > .project-wrapper {
-  background-image: url("/integramind.png");
+  background-image: url("/AxonUI.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -582,6 +582,7 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 3px 7px;
   margin-bottom: 10px;
+  white-space: nowrap;
 }
 
 .visit-app {
