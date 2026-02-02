@@ -22,9 +22,9 @@ export default function RootLayout({
         <link rel="icon" href="/my-social-photo2.jpeg" />
         <link
           rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
-          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
       </head>
       <body>{children}</body>
