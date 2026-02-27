@@ -1,8 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
 
 :root {
   --blue: #38b6ff;
@@ -349,6 +349,45 @@ button:hover {
 .work-face {
   align-items: flex-start;
   text-align: left;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.work-face .intro-heading {
+  font-size: 2rem;
+  line-height: 2rem;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.work-face .work-edu-list {
+  flex: 1;
+  min-height: 0;
+}
+
+.work-face .work-edu-section {
+  margin-bottom: 16px;
+}
+
+.work-face .work-edu-heading {
+  font-size: 1.25rem;
+  padding-bottom: 6px;
+}
+
+.work-face .work-edu-heading.date {
+  padding-bottom: 2px;
+}
+
+.work-face .work-edu-info p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.work-face .work-edu-info > ul > li {
+  font-size: 0.88rem;
+  padding: 0.15rem 0;
 }
 
 .work-edu-list {
@@ -742,6 +781,20 @@ button:hover {
     font-size: 1.3rem;
   }
 
+  .work-face .intro-heading {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    text-align: left;
+  }
+
+  .work-face .work-edu-section {
+    margin-bottom: 12px;
+  }
+
+  .work-face .work-edu-heading {
+    font-size: 1.15rem;
+  }
+
   .project-border {
     width: 100px;
     height: 100px;
@@ -882,6 +935,24 @@ button:hover {
     font-size: 1.8rem;
     line-height: 1.8rem;
     text-align: center;
+  }
+
+  .work-face .intro-heading {
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    text-align: left;
+  }
+
+  .work-face .work-edu-section {
+    margin-bottom: 10px;
+  }
+
+  .work-face .work-edu-heading {
+    font-size: 1rem;
+  }
+
+  .work-face .work-edu-info > ul > li {
+    font-size: 0.8rem;
   }
 
   .intro-text {
